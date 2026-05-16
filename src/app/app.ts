@@ -17,6 +17,11 @@ export class App implements OnInit {
   cargando = signal(true);
   error = signal('');
 
+   // --- Posts ---
+  posts = signal<Post[]>([]);
+  cargandoPosts = signal(true);
+  errorPosts = signal('');
+
   constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {
@@ -30,6 +35,19 @@ export class App implements OnInit {
         this.cargando.set(false);
         console.error('Error:', err);
       }
+    });
+
+    this.apiService.obtenerPosts().subscribe({
+      next: (data: Post[]) => {
+        this.posts.set(data);
+        this.cargandoPosts.set(false);
+      },
+      error: (err: Error) => {
+        this.errorPosts.set('Error al cargar posts: ' + err.message);
+        this.cargandoPosts.set(false);
+        console.error('Error:', err);
+      }
+
     });
   }
 }

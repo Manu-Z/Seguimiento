@@ -43,5 +43,43 @@
     </table>
   </div>
 
+   <!-- ===== SECCIÓN POSTS ===== -->
+  <h2>📝 Posts</h2>
+  <p class="subtitulo">Publicaciones consumidas desde JSONPlaceholder API</p>
+ 
+  <!-- Estado: Cargando posts -->
+  <div *ngIf="cargandoPosts()" class="estado-cargando">
+    ⏳ Cargando posts...
+  </div>
+ 
+  <!-- Estado: Error posts -->
+  <div *ngIf="errorPosts()" class="estado-error">
+    ❌ {{ errorPosts() }}
+  </div>
+ 
+  <!-- Estado: Posts cargados -->
+  <div *ngIf="!cargandoPosts() && !errorPosts()">
+    <p class="contador">Total de posts: <strong>{{ posts().length }}</strong></p>
+ 
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>User ID</th>
+          <th>Título</th>
+          <th>Cuerpo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let post of posts()">
+          <td>{{ post.id }}</td>
+          <td>{{ post.userId }}</td>
+          <td>{{ post.title }}</td>
+          <td>{{ post.body }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
 </div>
 ```
